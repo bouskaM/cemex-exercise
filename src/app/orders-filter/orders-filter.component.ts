@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { FilterActions, OrderActions } from '../store/orders.actions';
+import { FilterActions } from '../store/orders.actions';
 import { Store } from '@ngrx/store';
-import { OrderStatus } from '../models/orders.models';
+import { Order, OrderStatus } from '../models/orders.models';
+import { Filters } from '../models/filters.models';
 
 
 @Component({
@@ -11,22 +12,29 @@ import { OrderStatus } from '../models/orders.models';
   styleUrl: './orders-filter.component.less'
 })
 export class OrdersFilterComponent {
+  @Input() productLines: Set<string> = new Set<string>();
+  @Output() filterChange = new EventEmitter<Filters>();
+
   filtersForm = new FormGroup({
     status: new FormControl([
       { label: 'In Progress', value: OrderStatus.IN_PROGRESS, checked: false },
       { label: 'Pending', value: OrderStatus.PENDING, checked: false },
       { label: 'Completed', value: OrderStatus.COMPLETED, checked: false }
+    
     ]),
+    productLine: new FormControl('all')
   });
 
   constructor(private store: Store) {
     this.filtersForm.valueChanges.subscribe(value => {
 
       const filters = {
-        status: value.status?.filter((status) => status.checked).map((status) => status.value)
+        status: value.status?.filter((status) => status.checked).map((status) => status.value),
+        productLine: value.productLine === 'all' ? null : value.productLine
       }
 
-      this.store.dispatch(FilterActions.updateFilters({ filters }));
+      this.filterChange.emit(filters);
+      // this.store.dispatch(FilterActions.updateFilters({ filters }));
     });
   }
 

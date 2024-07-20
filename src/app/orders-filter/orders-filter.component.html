@@ -1,4 +1,15 @@
 <ng-container [formGroup]="filtersForm">
-    <label> Status </label>
-    <nz-checkbox-group formControlName="status"></nz-checkbox-group>
+    <div>
+        <label> Status </label>
+        <nz-checkbox-group formControlName="status"></nz-checkbox-group>
+    </div>
+
+    <div>
+        <label> Product Line</label>
+        <nz-select nzPlaceHolder="Select a person" formControlName="productLine">
+            <nz-option nzLabel="All product lines" [nzValue]="null"></nz-option>
+            <nz-option *ngFor="let productLine of productLines" [nzLabel]="productLine"
+                [nzValue]="productLine"></nz-option>
+        </nz-select>
+    </div>
 </ng-container>
