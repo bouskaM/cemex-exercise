@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { FilterActions, OrderActions } from '../store/orders.actions';
-import { getFilteredOrders, getProductLines } from '../store/orders.selectors';
+import { getFilteredOrders, getProductLines, getRelevantDateRange } from '../store/orders.selectors';
 import { Filters } from '../models/filters.models';
-import { concatLatestFrom } from '@ngrx/effects';
 import { combineLatest } from 'rxjs';
 
 @Component({
@@ -14,9 +13,10 @@ import { combineLatest } from 'rxjs';
 export class OrdersListingComponent {
   data$ = combineLatest({
     orders: this.store.pipe(select(getFilteredOrders)),
-    productLines: this.store.pipe(select(getProductLines))
+    productLines: this.store.pipe(select(getProductLines)),
+    relevantDateRange: this.store.pipe(select(getRelevantDateRange))
   });
-  
+
   constructor(private store: Store) {
     this.store.dispatch(OrderActions.loadOrders());
   }

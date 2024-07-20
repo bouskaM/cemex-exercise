@@ -12,4 +12,11 @@
                 [nzValue]="productLine"></nz-option>
         </nz-select>
     </div>
+
+    <div>
+        <label> Date Range </label>
+        <nz-range-picker [nzShowTime]="false" formControlName="dateRange" [nzDefaultPickerValue]="relevantDateRange"></nz-range-picker>
+    </div>
+
+    
 </ng-container>

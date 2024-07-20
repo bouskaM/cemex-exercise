@@ -25,3 +25,15 @@ export const getProductLines = createSelector(
     getOrdersState,
     state => new Set(state.orders.map(order => order.productLine))
 );
+
+// To get the relevant date range to show in the date picker
+export const getRelevantDateRange = createSelector(
+    getOrdersState,
+    state => {
+        if (state.orders.length === 0) return null;
+        const dates = state.orders.map(order => new Date(order.dateRequested));
+        const minDate = dates.reduce(function (a, b) { return a < b ? a : b; }); 
+        const maxDate = dates.reduce(function (a, b) { return a > b ? a : b; });
+        return [ minDate, maxDate ];
+    }
+);

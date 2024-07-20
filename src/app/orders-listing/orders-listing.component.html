@@ -1,6 +1,8 @@
 <ng-container *ngrxLet="data$ as data">
-    <cc-orders-filter (filterChange)="filterChange($event)" [productLines]="data.productLines"></cc-orders-filter>
-
+    <cc-orders-filter (filterChange)="filterChange($event)"
+                      [productLines]="data.productLines"
+                      [relevantDateRange]="data.relevantDateRange">
+    </cc-orders-filter>
 
     {{ data | json }}
 </ng-container>
