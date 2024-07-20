@@ -6,5 +6,5 @@ export interface Filters {
         startDate: Date | null;
         endDate: Date | null;
     }
-    searchOrderNumber?: number | null;
+    searchOrderNumber?: string | null;
 }

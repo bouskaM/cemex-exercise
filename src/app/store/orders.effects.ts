@@ -5,26 +5,14 @@ import { OrderActions } from "./orders.actions";
 import { catchError, map, of, switchMap } from "rxjs";
 import { OrderStatus, QuantityUnit } from "../models/orders.models";
 
-// Replace this with actual service call
-/**
- * 
- * export interface Order {
-    id: number;
-    Status: OrderStatus;
-    orderNumber: number;
-    productLine: string;
-    product: string;
-    quantity: Quantity;
-    dateRequested: Date;
-}
- */
+// Replace this with actual service/api call
 const getOrders = () => of([
-    { id: 1, status: OrderStatus.IN_PROGRESS, orderNumber: 3301, productLine: 'Ready-Mix', product: '1-200-2-C-28-1-2-000', quantity: { value: 12, unit: QuantityUnit.m3 }, dateRequested: new Date(2022, 9, 20) },
-    { id: 2, status: OrderStatus.PENDING, orderNumber: 3305, productLine: 'Cement', product: 'Gris CPC 30 R Monterrey Extra 50Kg', quantity: { value: 10, unit: QuantityUnit.TN }, dateRequested: new Date(2022, 10, 10) },
-    { id: 3, status: OrderStatus.PENDING, orderNumber: 3290, productLine: 'Aggregates', product: 'Arena Triturada Caliza Malla 4', quantity: { value: 2, unit: QuantityUnit.TN }, dateRequested: new Date(2022, 9, 29) },
-    { id: 4, status: OrderStatus.COMPLETED, orderNumber: 3184, productLine: 'Aggregates', product: 'Arena Triturada Caliza Malla 4', quantity: { value: 5, unit: QuantityUnit.TN }, dateRequested: new Date(2022, 5, 14) },
-    { id: 5, status: OrderStatus.COMPLETED, orderNumber: 3295, productLine: 'Cement', product: 'Gris CPC30R Tolteca Extra 50Kg', quantity: { value: 12, unit: QuantityUnit.TN }, dateRequested: new Date(2022, 4, 5) },
-    { id: 6, status: OrderStatus.COMPLETED, orderNumber: 2994, productLine: 'Ready-Mix', product: '1-200-2-C-28-14-1-3-000', quantity: { value: 15.5, unit: QuantityUnit.m3 }, dateRequested: new Date(2022, 3, 10) },
+    { id: 1, status: OrderStatus.IN_PROGRESS, orderNumber: '3301', productLine: 'Ready-Mix', product: '1-200-2-C-28-1-2-000', quantity: { value: 12, unit: QuantityUnit.m3 }, dateRequested: new Date(2022, 9, 20) },
+    { id: 2, status: OrderStatus.PENDING, orderNumber: '3305', productLine: 'Cement', product: 'Gris CPC 30 R Monterrey Extra 50Kg', quantity: { value: 10, unit: QuantityUnit.TN }, dateRequested: new Date(2022, 10, 10) },
+    { id: 3, status: OrderStatus.PENDING, orderNumber: '3290', productLine: 'Aggregates', product: 'Arena Triturada Caliza Malla 4', quantity: { value: 2, unit: QuantityUnit.TN }, dateRequested: new Date(2022, 9, 29) },
+    { id: 4, status: OrderStatus.COMPLETED, orderNumber: '3184', productLine: 'Aggregates', product: 'Arena Triturada Caliza Malla 4', quantity: { value: 5, unit: QuantityUnit.TN }, dateRequested: new Date(2022, 5, 14) },
+    { id: 5, status: OrderStatus.COMPLETED, orderNumber: '3295', productLine: 'Cement', product: 'Gris CPC30R Tolteca Extra 50Kg', quantity: { value: 12, unit: QuantityUnit.TN }, dateRequested: new Date(2022, 4, 5) },
+    { id: 6, status: OrderStatus.COMPLETED, orderNumber: '2994', productLine: 'Ready-Mix', product: '1-200-2-C-28-14-1-3-000', quantity: { value: 15.5, unit: QuantityUnit.m3 }, dateRequested: new Date(2022, 3, 10) },
 ]);
 
 @Injectable()
@@ -35,7 +23,6 @@ export class OrdersEffects {
         this.actions$.pipe(
             ofType(OrderActions.loadOrders),
             switchMap(() => {
-                console.log('Executing getOrders effect'); // Added console.log here
                 return getOrders().pipe(
                     switchMap(() => getOrders().pipe(
                         map(orders => 

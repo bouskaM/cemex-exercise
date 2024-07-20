@@ -20,6 +20,7 @@ import { OrdersListingComponent } from './orders-listing/orders-listing.componen
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { NzInputModule } from 'ng-zorro-antd/input';
 import { PushPipe, LetDirective } from '@ngrx/component';
 
 registerLocaleData(en);
@@ -42,6 +43,7 @@ registerLocaleData(en);
     NzCheckboxModule,
     NzSelectModule,
     NzDatePickerModule,
+    NzInputModule,
     PushPipe,
     LetDirective,
     StoreModule.forRoot({ orders: ordersReducer }),

@@ -1,8 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { FilterActions } from '../store/orders.actions';
-import { Store } from '@ngrx/store';
-import { Order, OrderStatus } from '../models/orders.models';
+import { OrderStatus } from '../models/orders.models';
 import { Filters } from '../models/filters.models';
 
 
@@ -25,18 +23,19 @@ export class OrdersFilterComponent {
     ]),
     productLine: new FormControl('all'),
     dateRange: new FormControl<Date[] | null>(null),
+    searchOrderNumber: new FormControl(null),
   });
 
-  constructor(private store: Store) {
+  constructor() {
     this.filtersForm.valueChanges.subscribe(value => {
-      console.log(value)
       const filters = {
         status: value.status?.filter((status) => status.checked).map((status) => status.value),
         productLine: value.productLine === 'all' ? null : value.productLine,
         dateRange: {
           startDate: value.dateRange ? value.dateRange[0] : null,
           endDate: value.dateRange ? value.dateRange[1] : null
-        }
+        },
+        searchOrderNumber: value.searchOrderNumber
       }
 
       this.filterChange.emit(filters);

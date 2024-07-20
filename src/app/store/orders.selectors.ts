@@ -17,7 +17,7 @@ export const getFilteredOrders = createSelector(
         (filters.productLine && order.productLine !== filters.productLine) ||
         (filters.dateRange && filters.dateRange.startDate && order.dateRequested < filters.dateRange.startDate) ||
         (filters.dateRange && filters.dateRange.endDate && order.dateRequested > filters.dateRange.endDate) ||
-        (filters.searchOrderNumber && order.orderNumber !== filters.searchOrderNumber)
+        (filters.searchOrderNumber && !order.orderNumber.includes(filters.searchOrderNumber))
     ))
 );
 
@@ -32,8 +32,8 @@ export const getRelevantDateRange = createSelector(
     state => {
         if (state.orders.length === 0) return null;
         const dates = state.orders.map(order => new Date(order.dateRequested));
-        const minDate = dates.reduce(function (a, b) { return a < b ? a : b; }); 
+        const minDate = dates.reduce(function (a, b) { return a < b ? a : b; });
         const maxDate = dates.reduce(function (a, b) { return a > b ? a : b; });
-        return [ minDate, maxDate ];
+        return [minDate, maxDate];
     }
 );
