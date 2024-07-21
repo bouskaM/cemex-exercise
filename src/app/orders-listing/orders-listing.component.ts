@@ -4,13 +4,19 @@ import { FilterActions, OrderActions } from '../store/orders.actions';
 import { getFilteredOrders, getProductLines, getRelevantEndDate, getRelevantStartDate } from '../store/orders.selectors';
 import { Filters } from '../models/filters.models';
 import { combineLatest } from 'rxjs';
+import { OrderStatus } from '../models/orders.models';
+
+
 
 @Component({
   selector: 'cc-orders-listing',
   templateUrl: './orders-listing.component.html',
   styleUrl: './orders-listing.component.less'
 })
+
 export class OrdersListingComponent {
+  orderStatus = OrderStatus;
+  
   data$ = combineLatest({
     orders: this.store.pipe(select(getFilteredOrders)),
     productLines: this.store.pipe(select(getProductLines)),

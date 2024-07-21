@@ -17,13 +17,23 @@
             </div>
 
             <!-- Orders List -->
-            <div *ngFor="let order of data.orders" class="order-card"> 
-                <div><span class="mobile-label">Status:</span>{{ order.status }}</div>
+            <div *ngFor="let order of data.orders" class="order-card">
+                <div class="status-wrapper">
+                    <span class="mobile-label">Status:</span>
+                    <div [ngClass]="{
+                        'status-pending': order.status === orderStatus.PENDING, 
+                        'status-in-progress': order.status === orderStatus.IN_PROGRESS, 
+                        'status-completed': order.status === orderStatus.COMPLETED
+                    }" class="status-color"></div>
+                    {{ order.status }}
+                </div>
                 <div><span class="mobile-label">Order Number:</span>{{ order.orderNumber }}</div>
                 <div><span class="mobile-label">Product Line:</span>{{ order.productLine }}</div>
                 <div><span class="mobile-label">Product:</span>{{ order.product }}</div>
-                <div><span class="mobile-label">Quantity:</span>{{ order.quantity.value }} {{ order.quantity.unit }}</div>
-                <div><span class="mobile-label">Date Requested:</span>{{ order.dateRequested | date: 'mediumDate' }}</div>
+                <div><span class="mobile-label">Quantity:</span>{{ order.quantity.value }} {{ order.quantity.unit }}
+                </div>
+                <div><span class="mobile-label">Date Requested:</span>{{ order.dateRequested | date: 'dd.MM.yyyy' }}
+                </div>
             </div>
         </div>
     </ng-container>

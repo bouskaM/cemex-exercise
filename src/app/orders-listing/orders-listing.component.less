@@ -36,6 +36,24 @@ h1 {
     display: none;
 }
 
+.status-wrapper{
+    display: flex;
+    align-items: center;
+}
+
+.status-color {
+    width: 20px;
+    height: 12px;
+    display: inline-block;
+    margin-right: 8px;
+    vertical-align: middle;
+    border-radius: 2px;
+}
+
+.status-pending { background-color: @warning-color; } 
+.status-in-progress { background-color: @light-blue; } 
+.status-completed { background-color: @success-color; }
+
 // Mobile styling
 @media (max-width: @tablet-breakpoint) {
     .orders-display .orders-header {
