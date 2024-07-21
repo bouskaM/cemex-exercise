@@ -1,9 +1,14 @@
 <ng-container *ngrxLet="data$ as data">
     <div class="orders-listing-container">
         <h1>Order History</h1>
-        <cc-orders-filter (filterChange)="filterChange($event)" [productLines]="data.productLines"
-            [relevantStartDate]="data.relevantStartDate" [relevantEndDate]="data.relevantEndDate">
+        <cc-orders-filter 
+            (filterChange)="filterChange($event)" 
+            [productLines]="data.productLines"
+            [relevantStartDate]="data.relevantStartDate" 
+            [relevantEndDate]="data.relevantEndDate">
         </cc-orders-filter>
+
+        <nz-alert *ngIf="data.error" nzType="error" [nzMessage]="data.error"></nz-alert>
 
         <div class="orders-display">
             <div *ngIf="data.orders.length > 0 || data.loading" class="orders-header">
@@ -14,27 +19,36 @@
                 <span>Quantity</span>
                 <span>Date Requested</span>
             </div>
-            <nz-spin [nzSpinning]="data.loading" [nzSize]="'large'">
-                <div *ngIf="data.orders.length > 0 || data.loading; else noDataTemplate">
-                <div *ngFor="let order of data.orders" class="order-card">
-                    <div class="status-wrapper">
-                        <span class="mobile-label">Status:</span>
-                        <div [ngClass]="{
-                        'status-pending': order.status === orderStatus.PENDING, 
-                        'status-in-progress': order.status === orderStatus.IN_PROGRESS, 
-                        'status-completed': order.status === orderStatus.COMPLETED
-                    }" class="status-color"></div>
-                        {{ order.status }}
+            <nz-spin [nzSpinning]="data.loading" nzSize="large">
+                <ng-container *ngIf="data.orders.length > 0 || data.loading; else noDataTemplate">
+                    <div *ngFor="let order of data.orders; trackBy: trackByOrderId" class="order-card">
+                        <div class="status-wrapper">
+                            <span class="mobile-label">Status:</span>
+                            <div [ngClass]="getStatusClass(order.status)" class="status-color"></div>
+                            {{ order.status }}
+                        </div>
+                        <div>
+                            <span class="mobile-label">Order Number:</span>
+                            {{ order.orderNumber }}
+                        </div>
+                        <div>
+                            <span class="mobile-label">Product Line:</span>
+                            {{ order.productLine }}
+                        </div>
+                        <div class="product-value">
+                            <span class="mobile-label">Product:</span>
+                            {{ order.product }}
+                        </div>
+                        <div>
+                            <span class="mobile-label">Quantity:</span>
+                            {{ order.quantity.value }} {{ order.quantity.unit }}
+                        </div>
+                        <div>
+                            <span class="mobile-label">Date Requested:</span>
+                            {{ order.dateRequested | date:'dd.MM.yyyy' }}
+                        </div>
                     </div>
-                    <div><span class="mobile-label">Order Number:</span>{{ order.orderNumber }}</div>
-                    <div><span class="mobile-label">Product Line:</span>{{ order.productLine }}</div>
-                    <div class="product-value"><span class="mobile-label">Product:</span>{{ order.product }}</div>
-                    <div><span class="mobile-label">Quantity:</span>{{ order.quantity.value }} {{ order.quantity.unit }}
-                    </div>
-                    <div><span class="mobile-label">Date Requested:</span>{{ order.dateRequested | date: 'dd.MM.yyyy' }}
-                    </div>
-                </div>
-                </div>
+                </ng-container>
             </nz-spin>
 
             <ng-template #noDataTemplate>

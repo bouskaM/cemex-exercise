@@ -1,7 +1,6 @@
 <div class="filters-card card">
     <ng-container [formGroup]="filtersForm">
         <div class="left-part">
-
             <div class="filter-section status-filter">
                 <label class="filter-label">Status</label>
                 <nz-checkbox-group class="status-checkboxes" formControlName="status"></nz-checkbox-group>
@@ -9,11 +8,10 @@
 
             <div class="filter-section product-line-filter">
                 <label class="filter-label">Product Line</label>
-                <nz-select class="select-dropdown" nzBorderless nzPlaceHolder="Select a product line" [nzSuffixIcon]="suffixIconDown"
-                    formControlName="productLine">
+                <nz-select class="select-dropdown" nzBorderless nzPlaceHolder="Select a product line" 
+                           [nzSuffixIcon]="suffixIconDown" formControlName="productLine">
                     <nz-option nzLabel="All product lines" nzValue="all"></nz-option>
-                    <nz-option *ngFor="let productLine of productLines" [nzLabel]="productLine"
-                        [nzValue]="productLine"></nz-option>
+                    <nz-option *ngFor="let productLine of productLines" [nzLabel]="productLine" [nzValue]="productLine"></nz-option>
                 </nz-select>
                 <ng-template #suffixIconDown>
                     <span class="icon" nz-icon nzType="down" nzTheme="outline"></span>
@@ -23,17 +21,17 @@
             <div class="date-picker-container">
                 <div class="filter-section">
                     <label class="filter-label">From</label>
-                    <nz-date-picker nzBorderless [nzShowTime]="false" formControlName="startDate" [nzShowToday]="false"
-                        [nzDefaultPickerValue]="relevantStartDate"></nz-date-picker>
+                    <nz-date-picker nzBorderless [nzShowTime]="false" formControlName="startDate" 
+                                    [nzShowToday]="false" [nzDefaultPickerValue]="relevantStartDate"></nz-date-picker>
                 </div>
                 <div class="filter-section">
                     <label class="filter-label">To</label>
-                    <nz-date-picker nzBorderless [nzShowTime]="false" formControlName="endDate" [nzShowToday]="false"
-                        [nzDefaultPickerValue]="relevantEndDate"></nz-date-picker>
+                    <nz-date-picker nzBorderless [nzShowTime]="false" formControlName="endDate" 
+                                    [nzShowToday]="false" [nzDefaultPickerValue]="relevantEndDate"></nz-date-picker>
                 </div>
             </div>
-
         </div>
+
         <div class="right-part">
             <div class="search">
                 <nz-input-group [nzSuffix]="suffixIconSearch">

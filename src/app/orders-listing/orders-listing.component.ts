@@ -1,20 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { FilterActions, OrderActions } from '../store/orders.actions';
-import { getFilteredOrders, getLoading, getProductLines, getRelevantEndDate, getRelevantStartDate } from '../store/orders.selectors';
-import { Filters } from '../models/filters.models';
 import { combineLatest } from 'rxjs';
-import { OrderStatus } from '../models/orders.models';
 
-
+import { getError, getFilteredOrders, getLoading, getProductLines, getRelevantEndDate, getRelevantStartDate } from '../store/orders.selectors';
+import { FilterActions, OrderActions } from '../store/orders.actions';
+import { Order, OrderStatus } from '../models/orders.models';
+import { Filters } from '../models/filters.models';
 
 @Component({
   selector: 'cc-orders-listing',
   templateUrl: './orders-listing.component.html',
-  styleUrl: './orders-listing.component.less'
+  styleUrls: ['./orders-listing.component.less']
 })
 
-export class OrdersListingComponent {
+/**
+ * OrdersListingComponent displays order history and provides a user interface for filtering orders.
+ */
+export class OrdersListingComponent implements OnInit {
   orderStatus = OrderStatus;
 
   data$ = combineLatest({
@@ -23,13 +25,33 @@ export class OrdersListingComponent {
     relevantStartDate: this.store.pipe(select(getRelevantStartDate)),
     relevantEndDate: this.store.pipe(select(getRelevantEndDate)),
     loading: this.store.pipe(select(getLoading)),
+    error: this.store.pipe(select(getError))
   });
 
-  constructor(private store: Store) {
+  constructor(private store: Store<any>) {}
+
+  ngOnInit(): void {
     this.store.dispatch(OrderActions.loadOrders());
   }
 
   filterChange(filters: Filters) {
     this.store.dispatch(FilterActions.updateFilters({ filters }));
+  }
+
+  trackByOrderId(index: number, order: Order): number {
+    return order.id;
+  }
+
+  getStatusClass(status: OrderStatus): string {
+    switch (status) {
+      case OrderStatus.Completed:
+        return 'status-completed';
+      case OrderStatus.Pending:
+        return 'status-pending';
+      case OrderStatus.InProgress:
+        return 'status-in-progress';
+      default:
+        return '';
+    }
   }
 }

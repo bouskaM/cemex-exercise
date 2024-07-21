@@ -1,7 +1,8 @@
-import { Action, ActionReducerMap, createReducer, on, State } from "@ngrx/store";
-import { Order } from "../models/orders.models";
+import { createReducer, on } from "@ngrx/store";
+
 import { FilterActions, OrderActions } from "./orders.actions";
 import { Filters } from "../models/filters.models";
+import { Order } from "../models/orders.models";
 
 export interface OrdersState {
     orders: Order[];
@@ -17,8 +18,7 @@ export const initialOrdersState: OrdersState = {
     filters: {}
 };
 
-
-export const orders = createReducer(
+export const ordersReducer = createReducer(
     initialOrdersState,
     on(OrderActions.loadOrders, state => ({
         ...state,
@@ -40,7 +40,3 @@ export const orders = createReducer(
         filters
     }))
 );
-
-export function ordersReducer(state: OrdersState | undefined, action: Action) {
-    return orders(state, action);
-}

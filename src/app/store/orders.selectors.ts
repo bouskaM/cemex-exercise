@@ -1,6 +1,7 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
-import { OrdersState } from "./orders.reducers";
+
 import { Filters } from "../models/filters.models";
+import { OrdersState } from "./orders.reducers";
 
 export const ordersStoreName = 'orders';
 export const getOrdersState = createFeatureSelector<OrdersState>(ordersStoreName);
@@ -10,6 +11,7 @@ export const getFilters = createSelector(
     state => state.filters
 );
 
+/** Returns the orders after applying the filters */
 export const getFilteredOrders = createSelector(
     getOrdersState, getFilters,
     (state, filters: Filters) => state.orders.filter(order => !(
@@ -21,6 +23,9 @@ export const getFilteredOrders = createSelector(
     ))
 );
 
+/** Returns the unique product lines in the orders 
+ * used to populate the product line filter dropdown
+*/
 export const getProductLines = createSelector(
     getOrdersState,
     state => new Set(state.orders.map(order => order.productLine))
@@ -52,4 +57,9 @@ export const getRelevantEndDate = createSelector(
 export const getLoading = createSelector(
     getOrdersState,
     state => state.loading
+);
+
+export const getError = createSelector(
+    getOrdersState,
+    state => state.error
 );
