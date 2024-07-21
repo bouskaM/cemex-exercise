@@ -66,6 +66,26 @@ h1 {
     font-weight: 600;
 }
 
+nz-spin {
+    position: relative;
+    top: 20vh;
+}
+
+.no-data {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 35vh;
+    text-align: center;
+    color: @dark-blue-1;
+
+    .icon {
+        font-size: 50px;
+        color: @light-grey;
+    }
+}
+
 // Mobile styling
 @media (max-width: @tablet-breakpoint) {
     .orders-display .orders-header {
@@ -82,25 +102,5 @@ h1 {
         display: inline;
         font-weight: bold;
         margin-right: 8px;
-    }
-}
-
-nz-spin {
-    position: relative;
-    height: 25vh;
-}
-
-.no-data {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 35vh;
-    text-align: center;
-    color: @dark-blue-1;
-
-    .icon {
-        font-size: 50px;
-        color: @light-grey;
     }
 }

@@ -19,7 +19,7 @@
                 <span>Quantity</span>
                 <span>Date Requested</span>
             </div>
-            <nz-spin [nzSpinning]="data.loading" nzSize="large">
+            <nz-spin [nzSpinning]="data.loading" nzSize="large" />
                 <ng-container *ngIf="data.orders.length > 0 || data.loading; else noDataTemplate">
                     <div *ngFor="let order of data.orders; trackBy: trackByOrderId" class="order-card">
                         <div class="status-wrapper">
@@ -49,7 +49,7 @@
                         </div>
                     </div>
                 </ng-container>
-            </nz-spin>
+
 
             <ng-template #noDataTemplate>
                 <div class="no-data">
