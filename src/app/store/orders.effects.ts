@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Store } from "@ngrx/store";
 import { OrderActions } from "./orders.actions";
-import { catchError, map, of, switchMap } from "rxjs";
+import { catchError, delay, map, of, switchMap } from "rxjs";
 import { OrderStatus, QuantityUnit } from "../models/orders.models";
 
 // Replace this with actual service/api call
@@ -22,6 +22,7 @@ export class OrdersEffects {
     getOrders$ = createEffect(() =>
         this.actions$.pipe(
             ofType(OrderActions.loadOrders),
+            delay(500), // Simulating API call delay
             switchMap(() => {
                 return getOrders().pipe(
                     switchMap(() => getOrders().pipe(

@@ -9,8 +9,8 @@ export interface Order {
 }
 
 export enum OrderStatus {
-    IN_PROGRESS = 'In Progress',
     PENDING = 'Pending',
+    IN_PROGRESS = 'In Progress',
     COMPLETED = 'Completed'
 }
 

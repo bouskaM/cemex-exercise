@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { FilterActions, OrderActions } from '../store/orders.actions';
-import { getFilteredOrders, getProductLines, getRelevantEndDate, getRelevantStartDate } from '../store/orders.selectors';
+import { getFilteredOrders, getLoading, getProductLines, getRelevantEndDate, getRelevantStartDate } from '../store/orders.selectors';
 import { Filters } from '../models/filters.models';
 import { combineLatest } from 'rxjs';
 import { OrderStatus } from '../models/orders.models';
@@ -16,12 +16,13 @@ import { OrderStatus } from '../models/orders.models';
 
 export class OrdersListingComponent {
   orderStatus = OrderStatus;
-  
+
   data$ = combineLatest({
     orders: this.store.pipe(select(getFilteredOrders)),
     productLines: this.store.pipe(select(getProductLines)),
     relevantStartDate: this.store.pipe(select(getRelevantStartDate)),
-    relevantEndDate: this.store.pipe(select(getRelevantEndDate))
+    relevantEndDate: this.store.pipe(select(getRelevantEndDate)),
+    loading: this.store.pipe(select(getLoading)),
   });
 
   constructor(private store: Store) {

@@ -48,3 +48,8 @@ export const getRelevantEndDate = createSelector(
         return maxDate
     }
 );
+
+export const getLoading = createSelector(
+    getOrdersState,
+    state => state.loading
+);

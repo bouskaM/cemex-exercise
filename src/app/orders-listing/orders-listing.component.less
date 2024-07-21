@@ -8,6 +8,7 @@
 
 h1 {
     margin-bottom: 20px;
+    color: @dark-blue-1;
 }
 
 .orders-display {
@@ -36,7 +37,7 @@ h1 {
     display: none;
 }
 
-.status-wrapper{
+.status-wrapper {
     display: flex;
     align-items: center;
 }
@@ -50,9 +51,21 @@ h1 {
     border-radius: 2px;
 }
 
-.status-pending { background-color: @warning-color; } 
-.status-in-progress { background-color: @light-blue; } 
-.status-completed { background-color: @success-color; }
+.status-pending {
+    background-color: @warning-color;
+}
+
+.status-in-progress {
+    background-color: @light-blue;
+}
+
+.status-completed {
+    background-color: @success-color;
+}
+
+.product-value{
+    font-weight: 600;
+}
 
 // Mobile styling
 @media (max-width: @tablet-breakpoint) {
@@ -70,5 +83,24 @@ h1 {
         display: inline;
         font-weight: bold;
         margin-right: 8px;
+    }
+}
+
+nz-spin {
+    position: relative;
+    height: 25vh;
+}
+
+.no-data {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 35vh;
+    text-align: center;
+    color: @dark-blue-1;
+    .icon{
+        font-size: 50px;
+        color: @light-grey;
     }
 }
