@@ -17,8 +17,8 @@ export class OrdersFilterComponent {
 
   filtersForm = new FormGroup({
     status: new FormControl([
-      { label: 'In Progress', value: OrderStatus.IN_PROGRESS, checked: false },
       { label: 'Pending', value: OrderStatus.PENDING, checked: false },
+      { label: 'In Progress', value: OrderStatus.IN_PROGRESS, checked: false },
       { label: 'Completed', value: OrderStatus.COMPLETED, checked: false }
 
     ]),

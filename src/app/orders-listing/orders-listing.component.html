@@ -1,11 +1,30 @@
 <div class="orders-listing-container">
     <h1>Order History</h1>
     <ng-container *ngrxLet="data$ as data">
-        <cc-orders-filter (filterChange)="filterChange($event)"
-                          [productLines]="data.productLines"
-                          [relevantStartDate]="data.relevantStartDate"
-                          [relevantEndDate]="data.relevantEndDate">
+        <cc-orders-filter (filterChange)="filterChange($event)" [productLines]="data.productLines"
+            [relevantStartDate]="data.relevantStartDate" [relevantEndDate]="data.relevantEndDate">
         </cc-orders-filter>
-        {{ data | json }}
+        <!-- Orders Display Component Template -->
+        <div class="orders-display">
+            <!-- Header Titles -->
+            <div class="orders-header">
+                <span>Status</span>
+                <span>Order Number</span>
+                <span>Product Line</span>
+                <span>Product</span>
+                <span>Quantity</span>
+                <span>Date Requested</span>
+            </div>
+
+            <!-- Orders List -->
+            <div *ngFor="let order of data.orders" class="order-card"> 
+                <div><span class="mobile-label">Status:</span>{{ order.status }}</div>
+                <div><span class="mobile-label">Order Number:</span>{{ order.orderNumber }}</div>
+                <div><span class="mobile-label">Product Line:</span>{{ order.productLine }}</div>
+                <div><span class="mobile-label">Product:</span>{{ order.product }}</div>
+                <div><span class="mobile-label">Quantity:</span>{{ order.quantity.value }} {{ order.quantity.unit }}</div>
+                <div><span class="mobile-label">Date Requested:</span>{{ order.dateRequested | date: 'mediumDate' }}</div>
+            </div>
+        </div>
     </ng-container>
 </div>

@@ -9,3 +9,48 @@
 h1 {
     margin-bottom: 20px;
 }
+
+.orders-display {
+
+    .orders-header,
+    .order-card {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 2fr 0.5fr 1fr;
+        padding: 10px 20px;
+        align-items: center;
+
+    }
+
+    .orders-header {
+        font-weight: bold;
+    }
+
+    .order-card {
+        background-color: @white;
+        margin-top: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+}
+
+.order-card .mobile-label {
+    display: none;
+}
+
+// Mobile styling
+@media (max-width: @tablet-breakpoint) {
+    .orders-display .orders-header {
+        display: none; // Hide original headers on mobile
+    }
+
+    .orders-display .order-card {
+        display: grid;
+        grid-template-columns: 1fr; // Single column layout
+        grid-gap: 10px;
+    }
+
+    .order-card .mobile-label {
+        display: inline;
+        font-weight: bold;
+        margin-right: 8px;
+    }
+}
