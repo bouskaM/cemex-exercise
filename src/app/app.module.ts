@@ -21,7 +21,9 @@ import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzInputModule } from 'ng-zorro-antd/input';
+import { SearchOutline } from '@ant-design/icons-angular/icons';
 import { PushPipe, LetDirective } from '@ngrx/component';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 
 registerLocaleData(en);
 
@@ -46,6 +48,7 @@ registerLocaleData(en);
     NzInputModule,
     PushPipe,
     LetDirective,
+    NzIconModule.forRoot([SearchOutline]),
     StoreModule.forRoot({ orders: ordersReducer }),
     StoreDevtoolsModule.instrument({
       maxAge: 25,

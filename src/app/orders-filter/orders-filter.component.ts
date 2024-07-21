@@ -11,7 +11,8 @@ import { Filters } from '../models/filters.models';
 })
 export class OrdersFilterComponent {
   @Input() productLines: Set<string> = new Set<string>();
-  @Input() relevantDateRange: Date[] | null = [];
+  @Input() relevantStartDate: Date | null = null;
+  @Input() relevantEndDate: Date | null = null;
   @Output() filterChange = new EventEmitter<Filters>();
 
   filtersForm = new FormGroup({
@@ -22,7 +23,8 @@ export class OrdersFilterComponent {
 
     ]),
     productLine: new FormControl('all'),
-    dateRange: new FormControl<Date[] | null>(null),
+    startDate: new FormControl<Date | null>(null),
+    endDate: new FormControl<Date | null>(null),
     searchOrderNumber: new FormControl(null),
   });
 
@@ -31,15 +33,12 @@ export class OrdersFilterComponent {
       const filters = {
         status: value.status?.filter((status) => status.checked).map((status) => status.value),
         productLine: value.productLine === 'all' ? null : value.productLine,
-        dateRange: {
-          startDate: value.dateRange ? value.dateRange[0] : null,
-          endDate: value.dateRange ? value.dateRange[1] : null
-        },
+        startDate: value.startDate ? value.startDate : null,
+        endDate: value.endDate ? value.endDate : null,
         searchOrderNumber: value.searchOrderNumber
       }
 
       this.filterChange.emit(filters);
     });
   }
-
 }

@@ -1,0 +1,111 @@
+@import 'src/styles.less';
+
+.filters-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    @media(max-width: @tablet-breakpoint) {
+        flex-direction: column;
+        align-items: center;
+        padding-bottom: 15px;
+    }
+}
+
+.filter-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-right: 20px;
+    position: relative;
+    margin-top: 8px;
+    margin-bottom: 8px;
+
+    @media (max-width: @tablet-breakpoint) {
+        width: 100%;
+        margin-right: 0px;
+
+        //horizontal separator line
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: @secondary-color;
+        }
+    }
+}
+
+.left-part {
+    display: flex;
+
+    // The vertical separator line
+    .status-filter::after,
+    .product-line-filter::after {
+        @media(min-width: @tablet-breakpoint) {
+            content: '';
+            position: absolute;
+            right: -10px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: @secondary-color;
+        }
+    }
+
+    .status-filter {
+        width: 100%;
+    }
+
+    @media(max-width: @tablet-breakpoint) {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+.filter-label {
+    font-weight: bold;
+}
+
+.status-checkboxes {
+    display: flex;
+    margin-top: 4px;
+    gap: 10px;
+}
+
+::ng-deep .ant-select-selector {
+    padding-left: 0 !important;
+}
+
+
+::ng-deep .ant-select-item-option.ant-select-item-option-active,
+::ng-deep .ant-select-item-option.ant-select-item-option-selected {
+    background-color: @secondary-color;
+}
+
+.date-picker-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+
+    @media(max-width: @tablet-breakpoint) {
+        margin-top: 10px;
+        width: 300px;
+    }
+}
+
+.select-dropdown {
+    width: 100%;
+}
+
+.right-part {
+    @media(max-width: @tablet-breakpoint) {
+        margin-top: 10px;
+        width: 100%;
+        max-width: 300px;
+    }
+}

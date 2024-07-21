@@ -1,24 +1,48 @@
-<ng-container [formGroup]="filtersForm">
-    <div>
-        <label> Status </label>
-        <nz-checkbox-group formControlName="status"></nz-checkbox-group>
-    </div>
+<div class="filters-card card">
+    <ng-container [formGroup]="filtersForm">
+        <div class="left-part">
 
-    <div>
-        <label> Product Line</label>
-        <nz-select nzPlaceHolder="Select a person" formControlName="productLine">
-            <nz-option nzLabel="All product lines" [nzValue]="null"></nz-option>
-            <nz-option *ngFor="let productLine of productLines" [nzLabel]="productLine"
-                [nzValue]="productLine"></nz-option>
-        </nz-select>
-    </div>
+            <div class="filter-section status-filter">
+                <label class="filter-label">Status</label>
+                <nz-checkbox-group class="status-checkboxes" formControlName="status"></nz-checkbox-group>
+            </div>
 
-    <div>
-        <label> Date Range </label>
-        <nz-range-picker [nzShowTime]="false" formControlName="dateRange" [nzDefaultPickerValue]="relevantDateRange"></nz-range-picker>
-    </div>
+            <div class="filter-section product-line-filter">
+                <label class="filter-label">Product Line</label>
+                <nz-select class="select-dropdown" nzBorderless nzPlaceHolder="Select a product line" [nzSuffixIcon]="suffixIconDown"
+                    formControlName="productLine">
+                    <nz-option nzLabel="All product lines" nzValue="all"></nz-option>
+                    <nz-option *ngFor="let productLine of productLines" [nzLabel]="productLine"
+                        [nzValue]="productLine"></nz-option>
+                </nz-select>
+                <ng-template #suffixIconDown>
+                    <span class="icon" nz-icon nzType="down" nzTheme="outline"></span>
+                </ng-template>
+            </div>
 
-    <div>
-        <input nz-input placeholder="Search order number" formControlName="searchOrderNumber"/>
-    </div>
-</ng-container>
+            <div class="date-picker-container">
+                <div class="filter-section">
+                    <label class="filter-label">From</label>
+                    <nz-date-picker nzBorderless [nzShowTime]="false" formControlName="startDate" [nzShowToday]="false"
+                        [nzDefaultPickerValue]="relevantStartDate"></nz-date-picker>
+                </div>
+                <div class="filter-section">
+                    <label class="filter-label">To</label>
+                    <nz-date-picker nzBorderless [nzShowTime]="false" formControlName="endDate" [nzShowToday]="false"
+                        [nzDefaultPickerValue]="relevantEndDate"></nz-date-picker>
+                </div>
+            </div>
+
+        </div>
+        <div class="right-part">
+            <div class="search">
+                <nz-input-group [nzSuffix]="suffixIconSearch">
+                    <input nz-input placeholder="Search order number" formControlName="searchOrderNumber" />
+                </nz-input-group>
+                <ng-template #suffixIconSearch>
+                    <span class="icon" nz-icon nzType="search"></span>
+                </ng-template>
+            </div>
+        </div>
+    </ng-container>
+</div>
